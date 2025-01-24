@@ -34,7 +34,7 @@ jobs:
         run: |
           
           npm install -g @mermaid-js/mermaid-cli
-          uvx -p ${{ matrix.python-version }} --with-editable .[test] playwright install --with-deps --with
+          uvx -p ${{ matrix.python-version }} --with-editable .[test] playwright install --with-deps 
 
       - name: Run reverse proxy script for ssh service
         if: contains(github.ref, '-debugger')
