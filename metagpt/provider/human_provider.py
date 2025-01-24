@@ -3,6 +3,7 @@ Filename: MetaGPT/metagpt/provider/human_provider.py
 Created Date: Wednesday, November 8th 2023, 11:55:46 pm
 Author: garylin2099
 """
+
 from typing import Optional
 
 from metagpt.configs.llm_config import LLMConfig
@@ -33,7 +34,7 @@ class HumanProvider(BaseLLM):
         format_msgs: Optional[list[dict[str, str]]] = None,
         generator: bool = False,
         timeout=USE_CONFIG_TIMEOUT,
-        **kwargs
+        **kwargs,
     ) -> str:
         return self.ask(msg, timeout=self.get_timeout(timeout))
 
@@ -52,4 +53,5 @@ class HumanProvider(BaseLLM):
         return ""
 
     def get_timeout(self, timeout: int) -> int:
+        """Get the timeout value to use for the API call"""
         return timeout or LLM_API_TIMEOUT
