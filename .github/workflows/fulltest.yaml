@@ -32,7 +32,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uvx pip install -e .[test]
+          uv pip install -e .[test]
           npm install -g @mermaid-js/mermaid-cli
           uvx playwright install --with-deps
 
