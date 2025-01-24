@@ -32,9 +32,9 @@ jobs:
 
       - name: Install dependencies
         run: |
-          uv pip install -e .[test]
+          
           npm install -g @mermaid-js/mermaid-cli
-          uvx playwright install --with-deps
+          uvx -p ${{ matrix.python-version }} --with-editable .[test] playwright install --with-deps --with
 
       - name: Run reverse proxy script for ssh service
         if: contains(github.ref, '-debugger')
@@ -59,10 +59,10 @@ jobs:
           export ALLOW_OPENAI_API_CALL=0
           echo "${{ secrets.METAGPT_KEY_YAML }}" | base64 -d > config/key.yaml
           mkdir -p ~/.metagpt && echo "${{ secrets.METAGPT_CONFIG2_YAML }}" | base64 -d > ~/.metagpt/config2.yaml
-          uvx pytest tests/ --doctest-modules --cov=./metagpt/ --cov-report=xml:cov.xml --cov-report=html:htmlcov --durations=20 | tee unittest.txt
+          uvx -p ${{ matrix.python-version }} --with-editable .[test] pytest tests/ --doctest-modules --cov=./metagpt/ --cov-report=xml:cov.xml --cov-report=html:htmlcov --durations=20 | tee unittest.txt
       - name: Show coverage report
         run: |
-          uvx coverage report -m
+          uvx -p ${{ matrix.python-version }} --with-editable .[test] coverage report -m
       - name: Show failed tests and overall summary
         run: |
           grep -E "FAILED tests|ERROR tests|[0-9]+ passed," unittest.txt
