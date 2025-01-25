@@ -5,15 +5,15 @@ description = "The Multi-Agent Framework"
 readme = "README.md"
 license = { file = "LICENSE" }
 authors = [
-    { name="Alexander Wu", email="alexanderwu@deepwisdom.ai" },
-    { name="Whth Yotta",email="porgandia@outlook.com"}
+    { name = "Alexander Wu", email = "alexanderwu@deepwisdom.ai" },
+    { name = "Whth Yotta", email = "porgandia@outlook.com" }
 ]
 keywords = ["metagpt", "multi-agent", "multi-role", "programming", "gpt", "llm", "metaprogramming"]
 classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
-scripts={metagpt="metagpt.software_company:app"}
-urls= { Homepage = "https://github.com/geekan/MetaGPT" }
+scripts = { metagpt = "metagpt.software_company:app" }
+urls = { Homepage = "https://github.com/geekan/MetaGPT" }
 requires-python = ">=3.9,<3.12"
 dependencies = [
     "aiohttp==3.8.6",

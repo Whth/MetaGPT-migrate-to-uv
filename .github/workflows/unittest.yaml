@@ -29,15 +29,15 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g @mermaid-js/mermaid-cli
-          uvx -p ${{ matrix.python-version }} --with-editable .[test,rag] playwright install --with-deps
+          uvx -p ${{ matrix.python-version }} --with-editable .[test,rag,search-ddg] playwright install --with-deps
       - name: Test with pytest
         run: |
           export ALLOW_OPENAI_API_CALL=0
           mkdir -p ~/.metagpt && cp tests/config2.yaml ~/.metagpt/config2.yaml
-          uvx -p ${{ matrix.python-version }} --with-editable .[test,rag] pytest | tee unittest.txt
+          uvx -p ${{ matrix.python-version }} --with-editable .[test,rag,search-ddg] pytest | tee unittest.txt
       - name: Show coverage report
         run: |
-          uvx -p ${{ matrix.python-version }} --with-editable .[test,rag] coverage report -m
+          uvx -p ${{ matrix.python-version }} --with-editable .[test,rag,search-ddg] coverage report -m
       - name: Show failed tests and overall summary
         run: |
           grep -E "FAILED tests|ERROR tests|[0-9]+ passed," unittest.txt
