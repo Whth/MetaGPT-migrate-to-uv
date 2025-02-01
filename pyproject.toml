@@ -15,6 +15,7 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
 ]
+
 scripts = { metagpt = "metagpt.software_company:app" }
 urls = { Homepage = "https://github.com/geekan/MetaGPT" }
 requires-python = ">=3.10,<3.12"
@@ -22,7 +23,7 @@ dependencies = [
     "aiohttp==3.8.6",
     "channels==4.0.0",
     "fire==0.4.0",
-    "typer==0.9.0",
+    "typer>=0.9.0",
     "lancedb==0.4.0",
     "loguru==0.6.0",
     "meilisearch==0.21.0",

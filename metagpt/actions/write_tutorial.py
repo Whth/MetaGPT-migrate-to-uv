@@ -8,10 +8,11 @@
 """
 
 from typing import Dict
-
+from pydantic import Field
 from metagpt.actions import Action
 from metagpt.prompts.tutorial_assistant import CONTENT_PROMPT, DIRECTORY_PROMPT
 from metagpt.utils.common import OutputParser
+
 
 
 class WriteDirectory(Action):
@@ -49,7 +50,7 @@ class WriteContent(Action):
     """
 
     name: str = "WriteContent"
-    directory: dict = dict()
+    directory: dict = Field(default_factory=dict)
     language: str = "Chinese"
 
     async def run(self, topic: str, *args, **kwargs) -> str:

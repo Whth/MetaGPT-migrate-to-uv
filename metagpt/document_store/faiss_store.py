@@ -12,6 +12,7 @@ from typing import Any, Optional
 import faiss
 from llama_index.core import VectorStoreIndex, load_index_from_storage
 from llama_index.core.embeddings import BaseEmbedding
+from llama_index.core.indices.base import BaseIndex
 from llama_index.core.schema import Document, QueryBundle, TextNode
 from llama_index.core.storage import StorageContext
 from llama_index.vector_stores.faiss import FaissVectorStore
@@ -24,7 +25,12 @@ from metagpt.utils.embedding import get_embedding
 
 class FaissStore(LocalStore):
     def __init__(
-        self, raw_data: Path, cache_dir=None, meta_col="source", content_col="output", embedding: BaseEmbedding = None
+        self,
+        raw_data: Path,
+        cache_dir: Path = None,
+        meta_col="source",
+        content_col="output",
+        embedding: BaseEmbedding = None,
     ):
         self.meta_col = meta_col
         self.content_col = content_col
@@ -32,14 +38,14 @@ class FaissStore(LocalStore):
         self.store: VectorStoreIndex
         super().__init__(raw_data, cache_dir)
 
-    def _load(self) -> Optional["VectorStoreIndex"]:
+    def _load(self) -> Optional[BaseIndex]:
         index_file, store_file = self._get_index_and_store_fname()
 
         if not (index_file.exists() and store_file.exists()):
             logger.info("Missing at least one of index_file/store_file, load failed and return None")
             return None
-        vector_store = FaissVectorStore.from_persist_dir(persist_dir=self.cache_dir)
-        storage_context = StorageContext.from_defaults(persist_dir=self.cache_dir, vector_store=vector_store)
+        vector_store = FaissVectorStore.from_persist_dir(persist_dir=self.cache_dir.as_posix())
+        storage_context = StorageContext.from_defaults(persist_dir=self.cache_dir.as_posix(), vector_store=vector_store)
         index = load_index_from_storage(storage_context, embed_model=self.embedding)
 
         return index

@@ -8,6 +8,8 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
 
+from llama_index.core.indices.base import BaseIndex
+
 
 class BaseStore(ABC):
     """FIXME: consider add_index, set_index and think about granularity."""
@@ -34,7 +36,7 @@ class LocalStore(BaseStore, ABC):
         if not cache_dir:
             cache_dir = raw_data_path.parent
         self.cache_dir = cache_dir
-        self.store = self._load()
+        self.store: BaseIndex = self._load()
         if not self.store:
             self.store = self.write()
 
