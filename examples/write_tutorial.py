@@ -13,8 +13,11 @@ from metagpt.roles.tutorial_assistant import TutorialAssistant
 
 
 async def main():
+    """
+    main function to run the tutorial assistant role
+    """
     topic = "Write a tutorial about MySQL"
-    role = TutorialAssistant(language="Chinese")
+    role = TutorialAssistant()
     await role.run(topic)
 
 
